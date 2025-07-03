@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4 border-success">
+        <h3 class="text-success text-center mb-4">Apply for: {{ job.job_title }}</h3>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <!-- Personal Info -->
+                <div class="col-md-6 mb-3">
+                    <label><strong>Name*</strong></label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label><strong>Email*</strong></label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label><strong>Phone*</strong></label>
+                    <input type="text" name="phone" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label><strong>Resume (PDF)*</strong></label>
+                    <input type="file" name="resume" class="form-control" required>
+                </div>
+                <div class="col-12 mb-3">
+                    <label><strong>Cover Letter (Optional)</strong></label>
+                    <textarea name="cover_letter" class="form-control" rows="3"></textarea>
+                </div>
+
+                <!-- Education -->
+                <div class="col-12 mb-3">
+                    <label><strong>Education Details*</strong></label>
+                    <textarea name="education" class="form-control" rows="3" placeholder="E.g., B.Tech in CSE from XYZ University (2020)..." required></textarea>
+                </div>
+
+                <!-- Experience -->
+                <div class="col-12 mb-3">
+                    <label><strong>Experience (Optional)</strong></label>
+                    <textarea name="experience" class="form-control" rows="3" placeholder="Mention previous jobs, internships etc."></textarea>
+                </div>
+
+                <!-- Job Questions -->
+                <div class="col-12 mb-3">
+                    <label><strong>Why are you interested in this job?*</strong></label>
+                    <textarea name="why_interested" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="col-12 mb-3">
+                    <label><strong>What are your strengths?*</strong></label>
+                    <textarea name="strength" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <!-- Declaration -->
+                <div class="col-12 mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="agree_terms" id="agreeTerms" required>
+                    <label class="form-check-label" for="agreeTerms">
+                        I hereby declare that the above information is true to the best of my knowledge.
+                    </label>
+                </div>
+
+                <!-- Submit -->
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-success">Submit Application</button>
+                    <a href="{% url 'user_dashboard' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

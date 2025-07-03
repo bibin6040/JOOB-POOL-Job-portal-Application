@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">
+            ← Back to Dashboard
+        </a>
+    </div>
+    <h3 class="text-success text-center">Application Details</h3>
+    <div class="card border-info p-4 shadow">
+        <p><strong>Name:</strong> {{ application.name }}</p>
+        <p><strong>Email:</strong> {{ application.email }}</p>
+        <p><strong>Phone:</strong> {{ application.phone }}</p>
+        <p><strong>Education:</strong> {{ application.education }}</p>
+        <p><strong>Experience:</strong> {{ application.experience }}</p>
+        <p><strong>Why Interested:</strong> {{ application.why_interested }}</p>
+        <p><strong>Strength:</strong> {{ application.strength }}</p>
+        <p><strong>Status:</strong> {{ application.status }}</p>
+        <p><strong>Resume:</strong> <a href="{{ application.resume.url }}" download>Download</a></p>
+    </div>
+</div>
+{% endblock %}

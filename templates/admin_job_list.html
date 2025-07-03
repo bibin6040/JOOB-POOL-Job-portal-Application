@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-success mb-4">All Job Posts</h2>
+    <div class="mb-3 text-start">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-primary">← Back to Dashboard</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center shadow">
+            <thead class="bg-success text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Employer</th>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                    <th>Salary</th>
+                    <th>Posted On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                <tr>
+                    <td>{{ job.id }}</td>
+                     <td>{{ job.employer.company_name }}</td>
+                    <td>{{ job.job_title }}</td>
+                    <td>{{ job.company_name }}</td>
+                    <td>{{ job.location }}</td>
+                    <td>{{ job.salary }}</td>
+                    <td>{{ job.posted_on|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url 'admin_job_view' job.id %}" class="btn btn-sm btn-info">View</a>
+                        <a href="{% url 'admin_job_edit' job.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'admin_job_delete' job.id %}" class="btn btn-sm btn-danger"
+                           onclick="return confirm('Delete this job?');">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7">No jobs found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

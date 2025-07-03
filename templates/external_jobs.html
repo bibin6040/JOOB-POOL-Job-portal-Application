@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-danger">Live Job Listings (API-Based)</h2>
+
+    <form method="get" class="mb-4 text-center">
+        <input type="text" name="search" value="{{ query }}" placeholder="Search job title..." class="form-control d-inline w-50">
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+
+    {% if jobs %}
+        <div class="list-group">
+            {% for job in jobs %}
+                <div class="list-group-item shadow-sm mb-3 p-3">
+                    <h5>{{ job.job_title }}</h5>
+                    <p><strong>Company:</strong> {{ job.employer_name }}</p>
+                    <p><strong>Location:</strong> {{ job.job_city }}, {{ job.job_country }}</p>
+                    <a href="{{ job.job_apply_link }}" target="_blank" class="btn btn-success btn-sm">Apply</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">No jobs found.</p>
+    {% endif %}
+</div>
+{% endblock %}

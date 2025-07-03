@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-success text-center mb-4">My Job Applications</h3>
+
+    {% if applications %}
+    <table class="table table-bordered shadow-sm text-center">
+        <thead class="bg-success text-white">
+            <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Applied On</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.job.job_title }}</td>
+                <td>{{ app.job.company_name }}</td>
+                <td>{{ app.submitted_at|date:"M d, Y" }}</td>
+                <td>
+                    <span class="badge 
+                        {% if app.status == 'Pending' %}bg-secondary
+                        {% elif app.status == 'Under Review' %}bg-info
+                        {% elif app.status == 'Shortlisted' %}bg-warning text-dark
+                        {% elif app.status == 'Rejected' %}bg-danger
+                        {% elif app.status == 'Accepted' %}bg-success
+                        {% endif %}">
+                        {{ app.status }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info text-center">
+        You have not applied for any jobs yet.
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{% url 'user_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

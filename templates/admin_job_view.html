@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow border-info p-4">
+        <h3 class="text-info text-center mb-4">{{ job.job_title }}</h3>
+        <li class="list-group-item"><strong>Employer:</strong> {{ job.employer.company_name }}</li>
+        <p><strong>Company:</strong> {{ job.company_name }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p><strong>Salary:</strong> {{ job.salary }}</p>
+        <p><strong>Description:</strong></p>
+        <p>{{ job.job_description }}</p>
+        <p><strong>Posted On:</strong> {{ job.posted_on|date:"F d, Y" }}</p>
+        <a href="{% url 'admin_job_list' %}" class="btn btn-secondary mt-3">← Back to Job List</a>
+    </div>
+</div>
+{% endblock %}

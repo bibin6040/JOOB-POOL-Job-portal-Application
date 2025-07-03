@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <!-- header-start -->
+    <header id="home">
+        <div class="header-area">
+            <!-- header-top -->
+            <div class="header-top primary-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="header-contact-info d-flex">
+                                <div class="header-contact header-contact-phone">
+                                    <span class="ti-headphone"></span>
+                                    <p class="phone-number">+0123456789</p>
+                                </div>
+                                <div class="header-contact header-contact-email">
+                                    <span class="ti-email"></span>
+                                    <p class="email-name">support@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- /end header-top -->
+           <!-- header-bottom -->
+<div class="header-bottom-area header-sticky" style="transition: .6s;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Logo Section -->
+            <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+                <div class="logo">
+                    <a href="{% url 'home' %}">
+                                <img src="{% static 'img/logo/logo1.png' %}" alt="Logo" width="136" height="30" style="object-fit: cover;">
+                            </a>
+                </div>
+            </div>
+
+            <!-- Menu & Icons Section -->
+            <div class="col-xl-10 col-lg-10 col-md-6 col-6">
+                <div class="header-bottom-icon f-right">
+                    <ul>
+                        <!-- Search Icon -->
+                        <li class="toggle-search-icon">
+                            <a href="#">
+                                <span class="ti-search"></span>
+                                <div class="toggle-search-box">
+                                    <form action="#" id="searchbox">
+                                        <input placeholder="Search for jobs..." type="text">
+                                        <button class="button-search">
+                                            <span class="ti-search"></span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="main-menu f-right">
+                    <nav id="mobile-menu" style="display: block;">
+                        <ul>
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                           
+                            
+                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Mobile Menu for Small Devices -->
+            <div class="col-12">
+                <div class="mobile-menu"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /end header-bottom -->
+
+        </div>
+    </header>
+    <!-- header-end -->
+    <!-- slider-start -->
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider d-flex align-items-center justify-content-center"
+     style="background-image: url('{% static 'img/bg/login.jpg' %}'); height: 600px; width: 100%; background-size: cover; background-position: center;">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="blue-color f-700">LOGIN</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'home' %}" tabindex="0">Home</a>
+                                    </li>
+                                    
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="advisors-area gray-bg pt-95 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2">
+                <div class="events-details-form faq-area-form mb-30 p-0">
+                    <form method="post" action="{% url 'login_user' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-8 offset-xl-2">
+                                <div class="events-form-title text-center mb-30">
+                                    <h2>User Login</h2>
+                                    {% if error %}
+                                        <p style="color: red;">{{ error }}</p>
+                                    {% endif %}
+                                    {% if success %}
+                                        <p style="color: green;">{{ success }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-xl-6 offset-xl-3">
+                                <input name="username" placeholder="Username" type="text" required>
+                            </div>
+                            <div class="col-xl-6 offset-xl-3">
+                                <input name="password" placeholder="Password" type="password" required>
+                            </div>
+                            <div class="col-xl-12 text-center mt-3">
+                                <button class="btn" type="submit">Login</button>
+                            </div>
+                            <div class="col-xl-12 text-center mt-2">
+                                <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+    {% endblock %}

@@ -1,0 +1,9 @@
+Django>=5.0
+requests>=2.31.0
+gunicorn
+whitenoise
+# if using PostgreSQL
+psycopg2-binary 
+python-dotenv
+gunicorn
+whitenoise

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <!-- header-start -->
+<header id="home">
+    <div class="header-area">
+        <!-- header-top -->
+        <div class="header-top primary-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                        <div class="header-contact-info d-flex">
+                            <div class="header-contact header-contact-phone">
+                                <span class="ti-headphone"></span>
+                                <p class="phone-number">+0123456789</p>
+                            </div>
+                            <div class="header-contact header-contact-email">
+                                <span class="ti-email"></span>
+                                <p class="email-name">support@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- /end header-top -->
+
+        <!-- header-bottom -->
+        <div class="header-bottom-area header-sticky" style="transition: .6s;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+                        <div class="logo">
+                            <a href="{% url 'home' %}">
+                                <img src="{% static 'img/logo/logo1.png' %}" alt="Logo" width="136" height="30" style="object-fit: cover;">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="col-xl-10 col-lg-10 col-md-6 col-6">
+                        <div class="header-bottom-icon f-right">
+                            <!-- Optional Icons -->
+                        </div>
+                        <div class="main-menu f-right">
+                            <nav id="mobile-menu" style="display: block;">
+                                <ul>
+                                    <li><a href="{% url 'employer_dashboard' %}">Dashboard</a></li>
+                                    
+                                   
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Mobile menu -->
+                    <div class="col-12">
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /end header-bottom -->
+    </div>
+</header>
+<!-- header-end -->
+
+        </div>
+    </header>
+    <!-- header-end -->
+    <!-- slider-start -->
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url('{% static 'img/bg/others_bg.jpg' %}');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">Posted Jobs</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider-end -->
+ {% if messages %}
+<script>
+    {% for message in messages %}
+        alert("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %}
+
+<!-- job list start -->
+<!-- job list start -->
+<div class="events-area gray-bg pt-100 pb-70">
+    <div class="container">
+        <div class="events-list">
+            <div class="row">
+                {% for job in jobs %}
+                <div class="col-xl-6 col-lg-6 col-md-10 offset-md-1">
+                    <div class="single-events mb-30">
+                        <div class="events-wrapper events-wrapper-padding">
+                            <div class="events-inner d-flex">
+                                <!-- Removed image block -->
+                                <div class="events-text white-bg w-100">
+                                    <div class="event-text-heading mb-20">
+                                        <div class="events-calendar text-center f-left">
+                                            <span class="date">{{ job.posted_on|date:"d" }}</span>
+                                            <span class="month">{{ job.posted_on|date:"M, Y" }}</span>
+                                        </div>
+                                        <div class="events-text-title clearfix">
+                                            <a href="{% url 'job_view' job.id %}">
+                                                <h4>{{ job.job_title }}</h4>
+                                            </a>
+                                            <p><strong>Company:</strong> {{ job.company_name }}</p>
+                                            <div class="time-area">
+                                                <span class="ti-location-pin"></span>
+                                                <span class="published-time">{{ job.location }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="events-para">
+                                        <p><strong>Salary:</strong> ₹{{ job.salary }}<br>
+                                        {{ job.job_description|truncatechars:100 }}</p>
+                                    </div>
+                                    <div class="events-speaker d-flex justify-content-between mt-3">
+                                        <a href="{% url 'job_view' job.id %}" class="btn btn-sm btn-info">View</a>
+                                        <a href="{% url 'job_edit' job.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{% url 'job_delete' job.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this job?');">Delete</a>
+                                    </div>
+                                </div>
+                                <!-- End of events-text -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <h4>No job postings found.</h4>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job list end -->
+
+    
+
+
+    {% endblock %}

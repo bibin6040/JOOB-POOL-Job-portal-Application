@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">
+            ← Back to Dashboard
+        </a>
+    </div>
+    <h2 class="text-success text-center mb-4">All Job Applications</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table table-bordered text-center shadow">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Job Title</th>
+                <th>Applicant Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Resume</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.job.job_title }}</td>
+                <td>{{ app.name }}</td>
+                <td>{{ app.email }}</td>
+                <td><span class="badge bg-info">{{ app.status }}</span></td>
+                <td><a href="{{ app.resume.url }}" download class="btn btn-sm btn-outline-success">Download</a></td>
+                <td>
+                    <a href="{% url 'admin_application_view' app.id %}" class="btn btn-sm btn-info">View</a>
+                    <a href="{% url 'admin_application_edit' app.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'admin_application_delete' app.id %}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this application?');">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

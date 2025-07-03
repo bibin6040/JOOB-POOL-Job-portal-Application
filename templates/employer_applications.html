@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Page Header -->
+<header id="home">
+    <!-- Similar header code as your base layout -->
+</header>
+
+<!-- Applications Page -->
+<div class="container mt-5">
+    <h2 class="text-center text-success mb-4">Job Applications Received</h2>
+    {% if applications %}
+        <div class="table-responsive">
+            <table class="table table-bordered text-center shadow">
+                <thead class="bg-success text-white">
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Applicant Name</th>
+                        <th>Email</th>
+                        <th>Resume</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                    <tr>
+                        <td>{{ app.job.job_title }}</td>
+                        <td>{{ app.name }}</td>
+                        <td>{{ app.email }}</td>
+                        <td><a href="{{ app.resume.url }}" class="btn btn-outline-primary btn-sm" download>Download</a></td>
+                        <td>
+                            <form method="post" action="{% url 'update_application_status' app.id %}">
+                                {% csrf_token %}
+                                <select name="status" onchange="this.form.submit()" class="form-select">
+                                    {% for value, label in status_choices %}
+                                        <option value="{{ value }}" {% if app.status == value %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+
+                        </td>
+                        <td><a href="{% url 'view_application_detail' app.id %}" class="btn btn-sm btn-info">View</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-center">No applications received yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

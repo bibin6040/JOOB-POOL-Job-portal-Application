@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Header Start -->
+<header id="home">
+    <div class="header-area">
+        <div class="header-top primary-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                        <div class="header-contact-info d-flex">
+                            <div class="header-contact header-contact-phone">
+                                <span class="ti-headphone"></span>
+                                <p class="phone-number">+0123456789</p>
+                            </div>
+                            <div class="header-contact header-contact-email">
+                                <span class="ti-email"></span>
+                                <p class="email-name">support@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Bottom -->
+        <div class="header-bottom-area header-sticky">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+                        <div class="logo">
+                            <a href="{% url 'home' %}">
+                                <img src="{% static 'img/logo/logo1.png' %}" alt="Logo" width="136" height="30" style="object-fit: cover;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-6 col-6">
+                        <div class="main-menu f-right">
+                            <nav id="mobile-menu">
+                                <ul>
+                                    <li><a href="{% url 'logout_admin' %}">Logout</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header End -->
+
+<!-- Slider Start -->
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider d-flex align-items-center justify-content-center"
+     style="background-image: url('{% static 'img/bg/ap.jpg' %}'); height: 600px; width: 100%; background-size: cover; background-position: center;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-12 text-center">
+                        <div class="slider-content slider-content-breadcrumb">
+                            <h1 class="blue-color f-700">ADMIN PANEL</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center bg-transparent p-0 m-0">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'home' %}" class="text-white">Home</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Area -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Chart Section -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-success shadow-sm">
+                <div class="card-header bg-success text-white text-center">
+                    Jobs Posted by Employers
+                </div>
+                <div class="card-body text-center">
+                    <canvas id="jobChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel Section -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    Admin Controls
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Manage:</strong></li>
+                        <li class="list-group-item"><a href="{% url 'user_list' %}">Users</a></li>
+                        <li class="list-group-item"><a href="{% url 'employer_list' %}">Employers</a></li>
+                        <li class="list-group-item"><a href="{% url 'admin_applications' %}">Applications</a></li>
+                        <li class="list-group-item"><a href="{% url 'admin_job_list' %}">Jobs Posted</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js and Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+    const ctx = document.getElementById('jobChart').getContext('2d');
+    const jobChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ employer_names|safe }},
+            datasets: [{
+                label: 'Jobs Posted',
+                data: {{ job_counts|safe }},
+                backgroundColor: [
+                    '#007bff', '#28a745', '#ffc107', '#dc3545',
+                    '#17a2b8', '#6f42c1', '#fd7e14', '#20c997'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: (value) => value
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+</script>
+
+{% endblock %}

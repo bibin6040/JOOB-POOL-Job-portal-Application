@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <!-- header-start -->
+    <header id="home">
+        <div class="header-area">
+            <!-- header-top -->
+            <div class="header-top primary-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="header-contact-info d-flex">
+                                <div class="header-contact header-contact-phone">
+                                    <span class="ti-headphone"></span>
+                                    <p class="phone-number">+01234567</p>
+                                </div>
+                                <div class="header-contact header-contact-email">
+                                    <span class="ti-email"></span>
+                                    <p class="email-name">support@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /end header-top -->
+          <!-- header-bottom -->
+<div class="header-bottom-area header-sticky" style="transition: .6s;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Logo -->
+            <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+                <div class="logo">
+                   <a href="{% url 'home' %}">
+                                <img src="{% static 'img/logo/logo1.png' %}" alt="Logo" width="136" height="30" style="object-fit: cover;">
+                            </a>
+                </div>
+            </div>
+
+            <!-- Navigation and Search -->
+            <div class="col-xl-10 col-lg-10 col-md-6 col-6">
+                <div class="header-bottom-icon f-right">
+                    <!-- Optional: Add icons here if needed -->
+                </div>
+                <div class="main-menu f-right">
+                    <nav id="mobile-menu" style="display: block;">
+                        <ul>
+                            <li><a href="{% url 'job_list_view' %}">Job Listings</a></li>
+                            <li><a href="{% url 'view_applications' %}">Applications</a></li>
+                            <li><a href="{% url 'logout_employer' %}">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div class="col-12">
+                <div class="mobile-menu"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /end header-bottom -->
+
+        </div>
+    </header>
+    <!-- header-end --><!-- slider-start -->
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider d-flex align-items-center justify-content-center"
+     style="background-image: url('{% static 'img/bg/ud.jpg' %}'); height: 600px; width: 100%; background-size: cover; background-position: center;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-12 text-center">
+                        <div class="slider-content slider-content-breadcrumb">
+                            <h1 class="white-color f-700">Post a Job</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center bg-transparent p-0 m-0">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'home' %}" class="text-white">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active text-white" aria-current="page">Post Jobs</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider-end -->
+ <!-- Message Alerts -->
+{% if messages %}
+<div class="container mt-4">
+    {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+    <div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8"> <!-- Adjust width as needed -->
+            <div class="card border-success shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h3 class="mb-0">Post a New Job</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'post_job' %}">
+                        {% csrf_token %}
+
+                        <div class="form-group mb-3">
+                            <label>Job Title</label>
+                            <input type="text" name="job_title" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Company Name</label>
+                            <input type="text" name="company_name" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Location</label>
+                            <input type="text" name="location" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Salary</label>
+                            <input type="text" name="salary" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Job Description</label>
+                            <textarea name="job_description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-4">Post Job</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+    {% endblock %}

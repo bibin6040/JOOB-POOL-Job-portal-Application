@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="card border-info shadow p-4">
+        <h3 class="text-info text-center mb-4">Application Details</h3>
+        <p><strong>Job Title:</strong> {{ application.job.job_title }}</p>
+        <p><strong>Name:</strong> {{ application.name }}</p>
+        <p><strong>Email:</strong> {{ application.email }}</p>
+        <p><strong>Phone:</strong> {{ application.phone }}</p>
+        <p><strong>Education:</strong><br> {{ application.education }}</p>
+        <p><strong>Experience:</strong><br> {{ application.experience|default:'N/A' }}</p>
+        <p><strong>Why Interested:</strong><br> {{ application.why_interested }}</p>
+        <p><strong>Strength:</strong><br> {{ application.strength }}</p>
+        <p><strong>Cover Letter:</strong><br> {{ application.cover_letter|default:'N/A' }}</p>
+        <p><strong>Resume:</strong> <a href="{{ application.resume.url }}" class="btn btn-outline-primary btn-sm" download>Download Resume</a></p>
+        <p><strong>Status:</strong> <span class="badge bg-secondary">{{ application.status }}</span></p>
+        <p><strong>Submitted On:</strong> {{ application.submitted_at }}</p>
+        <div class="text-center mt-4">
+            <a href="{% url 'view_applications' %}" class="btn btn-success">Back to Applications</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
